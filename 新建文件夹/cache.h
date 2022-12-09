@@ -4,14 +4,9 @@
 #include<stdlib.h>
 #include <string>
 #include<vector>
-#include <climits>
-#include<cmath>
-#include <algorithm>  
-
 using namespace std;
 
 #define L1_CACHE_SETS 16
-#define V_SETS 4
 #define L2_CACHE_SETS 16
 #define L2_CACHE_WAYS 8
 #define MEM_SIZE 4096
@@ -34,15 +29,12 @@ struct Stat
 	int missL2; 
 	int accL1;
 	int accL2;
-	int missV;
-	int accV;
 	// add more stat if needed. Don't forget to initialize!
 };
 
 class cache {
 private:
 	cacheBlock L1[L1_CACHE_SETS]; // 1 set per row.
-	cacheBlock V[V_SETS];
 	cacheBlock L2[L2_CACHE_SETS][L2_CACHE_WAYS]; // x ways per row 
 	Stat myStat;
 	// add more things here
@@ -51,27 +43,14 @@ public:
 	bool controller(bool MemR, bool MemW, int* data, int adr, int* myMem);
 	string de2bi(int adr);
 	int bi2de(string str);
-	string de2bi4(int adr);
-	string de2bi8(int adr);
 
 	bool checkadrL1(string adr);
 
-	int checkadrV(string adr);
-
 	int checkadrL2(string adr);
-
-	int checkV();
-
-	void LruV(int way);
 
 	void Lru(int index,int way);
 
 	void removeLru(int index,int way);
-
-	void removeLruV(int way);
-
-	void write2cacheV(int adr, int data);
-
 
 	void write2cacheL2(int index,int tag,int data);
 

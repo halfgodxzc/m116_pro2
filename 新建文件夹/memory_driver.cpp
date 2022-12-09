@@ -6,8 +6,6 @@
 #include <vector>
 #include "cache.h"
 #include <string>
-#include <climits>
-#include<cmath>
 using namespace std;
 
 struct trace
@@ -83,9 +81,8 @@ int main (int argc, char* argv[]) // the program runs like this: ./program <file
 	float L1_miss_rate, L2_miss_rate, AAT; 
 	//compute the stats here:
 	vector<float> result = myCache.return_result();
-	//cout << result[0] + result[1];
-	L1_miss_rate=(result[0]-result[4])/(result[0]+result[1]); L2_miss_rate= result[2] / (result[2]+result[3]); AAT=(result[1]+result[0]+(result[0]-result[4])*8+result[2]*100)/(result[0]+result[1]);
-	
+	L1_miss_rate=result[0]/(result[0]+result[1]); L2_miss_rate= result[2] / (result[2]+result[3]); AAT=(result[1]+result[0]+result[0]*8+result[2]*100)/(result[0]+result[1]);
+
 	cout<< "(" << L1_miss_rate<<","<<L2_miss_rate<<","<<AAT<<")"<<endl;
 
 	// closing the file
